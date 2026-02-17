@@ -5,6 +5,8 @@ from fastapi.staticfiles import StaticFiles
 
 from agents.retail_agent import RetailAgent
 
+import os
+import uvicorn
 
 app = FastAPI(title="Retail AI Agent")
 
@@ -126,3 +128,12 @@ def query(q: str):
     return {
         "answer": answer
     }
+
+
+# ==========================
+# Render / Production Start
+# ==========================
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 10000))
+    uvicorn.run("main:app", host="0.0.0.0", port=port)

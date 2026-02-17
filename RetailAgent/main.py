@@ -5,15 +5,15 @@ from fastapi.staticfiles import StaticFiles
 
 from agents.retail_agent import RetailAgent
 
-import os
-import uvicorn
-
 app = FastAPI(title="Retail AI Agent")
 
-# Serve frontend
-app.mount("/frontend", StaticFiles(directory="frontend"), name="frontend")
+# Serve frontend if exists
+try:
+    app.mount("/frontend", StaticFiles(directory="frontend"), name="frontend")
+except:
+    pass
 
-# CORS (dev safe)
+# CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -22,13 +22,20 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Load agent once
-agent = RetailAgent()
+# Lazy agent (IMPORTANT)
+agent = None
+
+def get_agent():
+    global agent
+    if agent is None:
+        print("Loading RetailAgent...")
+        agent = RetailAgent()
+    return agent
 
 
 @app.get("/")
 def home():
-    return FileResponse("frontend/index.html")
+    return {"status": "Retail AI backend running"}
 
 
 @app.get("/query")
@@ -37,15 +44,8 @@ def query(q: str):
     q_lower = q.lower().strip()
     words = q_lower.split()
 
-    print("\nUSER QUERY:", q)
-
-    # ------------------
-    # Small Talk (SAFE)
-    # ------------------
-
     greetings = ["hi", "hello", "hey"]
 
-    # Only match FULL WORD greetings
     if any(g == w for g in greetings for w in words):
         return {
             "answer": (
@@ -60,61 +60,27 @@ def query(q: str):
         }
 
     if "thank" in q_lower:
-        return {
-            "answer": "You’re welcome 🙂 Let me know if you need anything else!"
-        }
-
-    # ------------------
-    # Agent Layer
-    # ------------------
+        return {"answer": "You’re welcome 🙂"}
 
     try:
+        agent = get_agent()
         result = agent.run(q)
     except Exception as e:
         print("AGENT ERROR:", e)
-        return {
-            "answer": "⚠️ Something went wrong while processing your request."
-        }
-
-    # DEBUG
-    print("RESULT TYPE:", type(result))
-    print("RESULT VALUE:", result)
-
-    # ------------------
-    # Direct LLM String
-    # ------------------
+        return {"answer": "⚠️ Backend error."}
 
     if isinstance(result, str):
-        return {
-            "answer": result
-        }
-
-    # ------------------
-    # Dict Answer
-    # ------------------
+        return {"answer": result}
 
     if isinstance(result, dict) and "answer" in result:
-        return {
-            "answer": result["answer"]
-        }
-
-    # ------------------
-    # CSV Product Results
-    # ------------------
+        return {"answer": result["answer"]}
 
     if not isinstance(result, dict) or "recommendations" not in result:
-        return {
-            "answer": "Sorry - I couldn’t find anything related. Try asking differently."
-        }
+        return {"answer": "No results."}
 
     items = result["recommendations"]
 
-    if not items:
-        return {
-            "answer": "I couldn’t find matching products. Try another query!"
-        }
-
-    answer = "Here’s what I found for you:\n\n"
+    answer = "Here’s what I found:\n\n"
 
     for i, r in enumerate(items[:5], 1):
         answer += (
@@ -123,9 +89,4 @@ def query(q: str):
             f"Aisle: {r.get('aisle','')})\n"
         )
 
-    answer += "\nThese results are ranked using semantic similarity and historical popularity."
-
-    return {
-        "answer": answer
-    }
-
+    return {"answer": answer}

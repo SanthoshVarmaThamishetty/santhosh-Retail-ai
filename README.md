@@ -31,7 +31,7 @@ To deliver ranked, contextaware product recommendations.
 ## 🧠 Architecture
 
 
-![Retail AI Agent Architecture](Architecture.png)
+![Retail AI Agent Architecture](architecture.png)
 
 
 

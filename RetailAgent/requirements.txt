@@ -1,11 +1,13 @@
 fastapi
 uvicorn
+gunicorn
 pandas
 sentence-transformers
 faiss-cpu
 scikit-learn
 requests
 python-multipart
+
 
 
 

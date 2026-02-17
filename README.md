@@ -1,127 +1,116 @@
-🛒 Retail AI Agent – End-to-End Agentic ML System
+\# 🛒 Retail AI Agent - End-to-End Agentic ML System
 
-An AI-powered Retail Recommendation Agent built with modern Machine Learning, NLP, and microservice architecture principles.
-The system leverages semantic search, embeddings, and LLM orchestration to provide intelligent, context-aware product recommendations from structured retail datasets.
+An AI-powered Retail Recommendation Agent built with modern Machine Learning, NLP, and microservice architecture principles.  
+The system leverages semantic search, embeddings, and LLM orchestration to provide intelligent, context-aware product recommendations from structured retail datasets.  
 
-This project demonstrates production-grade ML engineering practices including agent-based reasoning, Retrieval Augmented Generation (RAG), FastAPI microservices, vector search, and MLOps-ready design.
+This project demonstrates production-grade ML engineering practices including agent-based reasoning, Retrieval Augmented Generation (RAG), FastAPI microservices, vector search, and MLOps ready design.  
 
-🚀 Project Overview
+---
 
-Retail AI Agent enables natural language querying of retail data. Example queries include:
+## 🚀 Project Overview
 
-“Healthy dinner ideas”
+**Retail AI Agent** enables natural language querying of retail data. Example queries include:
 
-“Popular snacks”
-
-“Fruits under $5”
-
-“Recommend products for kids”
+- “Healthy dinner ideas”  
+- “Popular snacks”  
+- “Fruits under $5”  
+- “Recommend products for kids”  
 
 The system combines:
 
-Embedding-based semantic search
+- Embedding-based semantic search  
+- Vector similarity ranking (FAISS)  
+- Lightweight agent orchestration  
+- LLM reasoning layer  
+- REST API microservice deployment  
 
-Vector similarity ranking (FAISS)
+To deliver ranked, contextaware product recommendations.
 
-Lightweight agent orchestration
+---
 
-LLM reasoning layer
+## 🧠 Architecture
 
-REST API microservice deployment
 
-to deliver ranked, context-aware product recommendations.
+![Retail AI Agent Architecture](architecture.png)
 
-🧠 Architecture
-Frontend (Netlify)
-        |
-        v
-FastAPI Backend (Microservice)
-        |
-        v
-RetailAgent (Agent Layer)
-        |
-        ├── Embedding Model (SentenceTransformers)
-        ├── Vector Store (FAISS)
-        ├── Structured Retail Data (CSV → Pandas)
-        └── LLM Reasoning Module
 
-🔑 Core Components
-1. Agentic Framework
 
-Custom RetailAgent implements:
+---
 
-Query parsing
+## 🔑 Core Components
 
-Semantic embedding generation
+### 1. Agentic Framework
+Custom **RetailAgent** implements:
 
-Vector similarity search
-
-Product ranking
-
-LLM response synthesis
+- Query parsing  
+- Semantic embedding generation  
+- Vector similarity search  
+- Product ranking  
+- LLM response synthesis  
 
 Modeled after LangChain-style agent pipelines, it supports:
 
-Tool calling
+- Tool calling  
+- Context retrieval  
+- Response generation  
 
-Context retrieval
+### 2. Retrieval Augmented Generation (RAG)
+**Pipeline**:
 
-Response generation
+1. User Query  
+2. Embedding Generation  
+3. FAISS Vector Search  
+4. Product Context Retrieval  
+5. LLM Answer Construction  
 
-2. Retrieval Augmented Generation (RAG)
+**Benefits**:
 
-Pipeline:
+- Reduces hallucinations  
+- Produces grounded responses  
+- Fuses structured + unstructured data  
 
-User Query
+### 3. NLP + Embeddings
+- SentenceTransformers for dense embeddings  
+- Cosine similarity ranking  
+- Semantic clustering of products  
+- NLP preprocessing & intent filtering  
 
-Embedding Generation
+---
 
-FAISS Vector Search
+## 🧪 ML Workflow & Microservices Architecture
 
-Product Context Retrieval
 
-LLM Answer Construction
 
-Benefits:
+**ML Workflow** | Feature extraction, Vectorization, Index building, Similarity inference 
 
-Reduces hallucinations
+**Designed to Scale**  Batch pipelines, Streaming ingestion, Distributed vector stores
 
-Produces grounded responses
+**Microservices Architecture** FastAPI REST service, Stateless API design, Agent layer decoupled from transport, Frontend hosted separately
 
-Fuses structured + unstructured data
+**Future Expansion**  Kubernetes deployment, Horizontal scaling, Load balancing 
 
-3. NLP + Embeddings
+**Tech Stack: Programming**  Python, SQL (data preparation), Object-Oriented Design Patterns 
 
-SentenceTransformers for dense embeddings
+**ML / NLP**  SentenceTransformers, FAISS, Scikit-learn, Transformers, RAG (Retrieval-Augmented Generation), Embedding models, LLM orchestration 
 
-Cosine similarity ranking
+ 
+**Backend**  FastAPI, Uvicorn / Gunicorn, REST APIs, CORS middleware 
 
-Semantic clustering of products
+**Data Processing** Pandas, NumPy, Semantic vector indexing 
 
-NLP preprocessing & intent filtering
+**MLOps & Deployment** Docker containerization, Kubernetes orchestration, CI/CD pipelines, Model versioning, Automated builds
 
-🧪 Machine Learning Pipeline
+**Tech Stack: Cloud Architecture**  GCP Vertex AI (model hosting), BigQuery (analytics + training data), Cloud Storage (artifacts + embeddings), Cloud Composer / Apache Airflow (ML pipelines) 
 
-Data Layer:
+**ML Workflow Automation** Data ingestion, Embedding regeneration, Vector index rebuild, Deployment trigger (Airflow DAG integration) 
 
-Products, Departments, Aisles, Orders
+**Testing Strategy** Unit testing (agent logic), Integration testing (API + agent), End-to-end validation (frontend → backend) 
 
-Loaded via Pandas and transformed into embedding vectors
-Section	Details / Components
-ML Workflow	Feature extraction, Vectorization, Index building, Similarity inference
-Designed to Scale	Batch pipelines, Streaming ingestion, Distributed vector stores
-Microservices Architecture	FastAPI REST service, Stateless API design, Agent layer decoupled from transport, Frontend hosted separately
-Future Expansion	Kubernetes deployment, Horizontal scaling, Load balancing
-Tech Stack: Programming	Python, SQL (data preparation), Object-Oriented Design Patterns
-Tech Stack: ML / NLP	SentenceTransformers, FAISS, Scikit-learn, Transformers, RAG (Retrieval-Augmented Generation), Embedding models, LLM orchestration
-Tech Stack: Backend	FastAPI, Uvicorn / Gunicorn, REST APIs, CORS middleware
-Tech Stack: Data Processing	Pandas, NumPy, Semantic vector indexing
-Tech Stack: MLOps & Deployment	Docker containerization, Kubernetes orchestration, CI/CD pipelines, Model versioning, Automated builds
-Tech Stack: Cloud Architecture	GCP Vertex AI (model hosting), BigQuery (analytics + training data), Cloud Storage (artifacts + embeddings), Cloud Composer / Apache Airflow (ML pipelines)
-ML Workflow Automation	Data ingestion, Embedding regeneration, Vector index rebuild, Deployment trigger (Airflow DAG integration)
-Testing Strategy	Unit testing (agent logic), Integration testing (API + agent), End-to-end validation (frontend → backend)
 
-📦 Installation
+
+
+
+## 📦 Installation
 # Clone repository
 git clone https://github.com/yourusername/retail-ai-agent.git
 cd retail-ai-agent
@@ -136,3 +125,14 @@ pip install -r requirements.txt
 
 # Run FastAPI backend
 uvicorn app.main:app --reload
+
+
+
+## 🧑‍💻 Contributors
+
+**Santhosh Varma** 
+
+Software Engineer & Applied ML Developer
+Focused on Agentic AI, ML systems, and scalable backend architecture.
+
+

@@ -7,11 +7,8 @@ from agents.retail_agent import RetailAgent
 
 app = FastAPI(title="Retail AI Agent")
 
-# Serve frontend if exists
-try:
-    app.mount("/frontend", StaticFiles(directory="frontend"), name="frontend")
-except:
-    pass
+# Serve frontend
+app.mount("/frontend", StaticFiles(directory="frontend"), name="frontend")
 
 # CORS
 app.add_middleware(
@@ -22,24 +19,24 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Lazy agent (IMPORTANT)
+# IMPORTANT: lazy load
 agent = None
-
-def get_agent():
-    global agent
-    if agent is None:
-        print("Loading RetailAgent...")
-        agent = RetailAgent()
-    return agent
 
 
 @app.get("/")
 def home():
-    return {"status": "Retail AI backend running"}
+    return FileResponse("frontend/index.html")
 
 
 @app.get("/query")
 def query(q: str):
+
+    global agent
+
+    # Load agent only on first request
+    if agent is None:
+        print("Loading RetailAgent...")
+        agent = RetailAgent()
 
     q_lower = q.lower().strip()
     words = q_lower.split()
@@ -63,11 +60,10 @@ def query(q: str):
         return {"answer": "You’re welcome 🙂"}
 
     try:
-        agent = get_agent()
         result = agent.run(q)
     except Exception as e:
         print("AGENT ERROR:", e)
-        return {"answer": "⚠️ Backend error."}
+        return {"answer": "⚠️ Internal error."}
 
     if isinstance(result, str):
         return {"answer": result}
@@ -83,10 +79,7 @@ def query(q: str):
     answer = "Here’s what I found:\n\n"
 
     for i, r in enumerate(items[:5], 1):
-        answer += (
-            f"{i}. {r.get('product_name','')} "
-            f"(Department: {r.get('department','')}, "
-            f"Aisle: {r.get('aisle','')})\n"
-        )
+        answer += f"{i}. {r.get('product_name','')}\n"
 
     return {"answer": answer}
+

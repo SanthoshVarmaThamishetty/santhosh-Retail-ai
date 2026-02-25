@@ -1,138 +1,189 @@
-\# 🛒 Retail AI Agent - End-to-End Agentic ML System
+# 🛒 Retail AI Agent — End-to-End Agentic ML System
 
-An AI-powered Retail Recommendation Agent built with modern Machine Learning, NLP, and microservice architecture principles.  
-The system leverages semantic search, embeddings, and LLM orchestration to provide intelligent, context-aware product recommendations from structured retail datasets.  
+> An AI-powered recommendation engine combining semantic search, RAG pipelines, and LLM orchestration — built for production-grade retail intelligence.
 
-This project demonstrates production-grade ML engineering practices including agent-based reasoning, Retrieval Augmented Generation (RAG), FastAPI microservices, vector search, and MLOps ready design.  
-
----
-
-## 🚀 Project Overview
-
-**Retail AI Agent** enables natural language querying of retail data. Example queries include:
-
-- “Healthy dinner ideas”  
-- “Popular snacks”  
-- “Fruits under $5”  
-- “Recommend products for kids”  
-
-The system combines:
-
-- Embedding-based semantic search  
-- Vector similarity ranking (FAISS)  
-- Lightweight agent orchestration  
-- LLM reasoning layer  
-- REST API microservice deployment  
-
-To deliver ranked, contextaware product recommendations.
+[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=flat-square&logo=python&logoColor=white)](https://python.org)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-009688?style=flat-square&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
+[![FAISS](https://img.shields.io/badge/FAISS-Vector%20Search-FF6B35?style=flat-square)](https://github.com/facebookresearch/faiss)
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=flat-square&logo=docker&logoColor=white)](https://docker.com)
+[![GCP](https://img.shields.io/badge/GCP-Vertex%20AI-4285F4?style=flat-square&logo=googlecloud&logoColor=white)](https://cloud.google.com)
+[![License](https://img.shields.io/badge/License-MIT-22C55E?style=flat-square)](LICENSE)
 
 ---
 
-## 🧠 Architecture
+## 📌 Overview
 
+**Retail AI Agent** enables natural language querying of retail data, combining embedding-based semantic search, vector similarity ranking, and LLM reasoning to deliver intelligent, context-aware product recommendations.
+
+This project demonstrates production-grade ML engineering — agent-based reasoning, Retrieval Augmented Generation (RAG), FastAPI microservices, FAISS vector search, and MLOps-ready design.
+
+**Example queries the system handles:**
+
+| Query | Intent |
+|-------|--------|
+| `"Healthy dinner ideas"` | Nutritional filtering |
+| `"Popular snacks"` | Trend-based ranking |
+| `"Fruits under $5"` | Price + category constraint |
+| `"Recommend products for kids"` | Demographic targeting |
+
+---
+
+## 🏗️ Architecture
 
 ![Retail AI Agent Architecture](RetailAgent/Architecture.png)
-
-
 
 ---
 
 ## 🔑 Core Components
 
-### 1. Agentic Framework
-Custom **RetailAgent** implements:
+### 1. 🤖 Agentic Framework
 
-- Query parsing  
-- Semantic embedding generation  
-- Vector similarity search  
-- Product ranking  
-- LLM response synthesis  
+A custom **RetailAgent** implements a full reasoning loop:
 
-Modeled after LangChain-style agent pipelines, it supports:
+- **Query Parsing** — intent extraction and entity recognition
+- **Embedding Generation** — dense vector representations via SentenceTransformers
+- **Vector Similarity Search** — FAISS-powered nearest-neighbor retrieval
+- **Product Ranking** — cosine similarity scoring
+- **LLM Response Synthesis** — grounded answer generation
 
-- Tool calling  
-- Context retrieval  
-- Response generation  
-
-### 2. Retrieval Augmented Generation (RAG)
-**Pipeline**:
-
-1. User Query  
-2. Embedding Generation  
-3. FAISS Vector Search  
-4. Product Context Retrieval  
-5. LLM Answer Construction  
-
-**Benefits**:
-
-- Reduces hallucinations  
-- Produces grounded responses  
-- Fuses structured + unstructured data  
-
-### 3. NLP + Embeddings
-- SentenceTransformers for dense embeddings  
-- Cosine similarity ranking  
-- Semantic clustering of products  
-- NLP preprocessing & intent filtering  
+Modeled after LangChain-style agent pipelines with support for tool calling, context retrieval, and response generation.
 
 ---
 
-## 🧪 ML Workflow & Microservices Architecture
+### 2. 🔍 Retrieval Augmented Generation (RAG)
 
+```
+User Query
+    ↓
+Embedding Generation (SentenceTransformers)
+    ↓
+FAISS Vector Search
+    ↓
+Product Context Retrieval
+    ↓
+LLM Answer Construction
+    ↓
+Ranked Recommendations
+```
 
+**Benefits:**
+- Reduces hallucinations with grounded context
+- Fuses structured product data with unstructured queries
+- Produces verifiable, traceable responses
 
-**ML Workflow** | Feature extraction, Vectorization, Index building, Similarity inference 
+---
 
-**Designed to Scale**  Batch pipelines, Streaming ingestion, Distributed vector stores
+### 3. 🧬 NLP + Embeddings
 
-**Microservices Architecture** FastAPI REST service, Stateless API design, Agent layer decoupled from transport, Frontend hosted separately
+- Dense embeddings via **SentenceTransformers**
+- **Cosine similarity** ranking across product corpus
+- Semantic clustering for product groupings
+- NLP preprocessing and intent filtering
 
-**Future Expansion**  Kubernetes deployment, Horizontal scaling, Load balancing 
+---
 
-**Tech Stack: Programming**  Python, SQL (data preparation), Object-Oriented Design Patterns 
+## ⚙️ Tech Stack
 
-**ML / NLP**  SentenceTransformers, FAISS, Scikit-learn, Transformers, RAG (Retrieval-Augmented Generation), Embedding models, LLM orchestration 
+### ML / NLP
+| Component | Technology |
+|-----------|------------|
+| Embeddings | SentenceTransformers |
+| Vector Index | FAISS |
+| ML Utilities | Scikit-learn |
+| LLM Layer | Transformers / LLM Orchestration |
+| Pattern | RAG (Retrieval-Augmented Generation) |
 
- 
-**Backend**  FastAPI, Uvicorn / Gunicorn, REST APIs, CORS middleware 
+### Backend
+| Component | Technology |
+|-----------|------------|
+| API Framework | FastAPI |
+| Server | Uvicorn / Gunicorn |
+| Design | Stateless REST, CORS middleware |
+| Agent Layer | Decoupled from transport |
 
-**Data Processing** Pandas, NumPy, Semantic vector indexing 
+### Data & MLOps
+| Component | Technology |
+|-----------|------------|
+| Data Processing | Pandas, NumPy |
+| Containerization | Docker |
+| Orchestration | Kubernetes |
+| CI/CD | Automated pipelines |
+| Model Versioning | MLOps-ready design |
 
-**MLOps & Deployment** Docker containerization, Kubernetes orchestration, CI/CD pipelines, Model versioning, Automated builds
+### ☁️ Cloud Architecture (GCP)
+| Service | Purpose |
+|---------|---------|
+| Vertex AI | Model hosting |
+| BigQuery | Analytics + training data |
+| Cloud Storage | Artifacts + embeddings |
+| Cloud Composer / Airflow | ML pipeline orchestration |
 
-**Tech Stack: Cloud Architecture**  GCP Vertex AI (model hosting), BigQuery (analytics + training data), Cloud Storage (artifacts + embeddings), Cloud Composer / Apache Airflow (ML pipelines) 
+---
 
-**ML Workflow Automation** Data ingestion, Embedding regeneration, Vector index rebuild, Deployment trigger (Airflow DAG integration) 
+## 🔄 ML Workflow Automation
 
-**Testing Strategy** Unit testing (agent logic), Integration testing (API + agent), End-to-end validation (frontend → backend) 
+Airflow DAG integration handles the full pipeline lifecycle:
 
+1. **Data Ingestion** — ingest and validate retail datasets
+2. **Embedding Regeneration** — rebuild semantic vectors on data updates
+3. **Vector Index Rebuild** — refresh FAISS index
+4. **Deployment Trigger** — automated rollout on pipeline success
 
+---
 
+## 🧪 Testing Strategy
 
+| Layer | Scope |
+|-------|-------|
+| Unit Tests | Agent logic, embedding functions |
+| Integration Tests | API ↔ Agent interaction |
+| End-to-End | Frontend → Backend → Response validation |
+
+---
 
 ## 📦 Installation
+
+```bash
 # Clone repository
 git clone https://github.com/yourusername/retail-ai-agent.git
 cd retail-ai-agent
 
 # Create virtual environment
 python -m venv venv
-source venv/bin/activate  # Linux / MacOS
-venv\Scripts\activate     # Windows
+source venv/bin/activate       # Linux / macOS
+venv\Scripts\activate          # Windows
 
 # Install dependencies
 pip install -r requirements.txt
 
 # Run FastAPI backend
 uvicorn app.main:app --reload
+```
 
+The API will be available at `http://localhost:8000`. Interactive docs at `http://localhost:8000/docs`.
 
+---
 
-## 🧑‍💻 Contributors
+## 🚀 Designed to Scale
 
-**Santhosh Varma** 
+The architecture supports future horizontal scaling:
 
-Software Engineer & Applied ML Developer
+- **Batch pipelines** for offline embedding generation
+- **Streaming ingestion** for real-time product updates
+- **Distributed vector stores** for large-scale retrieval
+- **Kubernetes** for horizontal scaling and load balancing
+
+---
+
+## 👤 Contributors
+
+**Santhosh Varma**
+*Software Engineer & Applied ML Developer*
+
 Focused on Agentic AI, ML systems, and scalable backend architecture.
 
+---
 
+<p align="center">
+  <sub>Built with ❤️ using FastAPI · FAISS · SentenceTransformers · GCP</sub>
+</p>
